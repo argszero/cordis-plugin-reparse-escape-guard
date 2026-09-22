@@ -1,0 +1,25 @@
+# The @argszero/cordis-plugin-reparse-escape-guard bundle patch.
+#
+# It needs no deployment-specific config to mount. With an empty config the guard
+# compares every written path operand of the shipped mutating tools (write, edit,
+# str_replace_editor) against the sandbox policy's own writable roots, and refuses
+# a call whose operand reads as inside them and resolves outside.
+#
+#   - insert:
+#       - id: reparse-escape-guard
+#         config:
+#           # mode: guard            # guard (default) refuses; observe reports; off does nothing
+#           # action: deny           # deny (default) refuses directly; ask defers to the approval service
+#           # extraWrites:           # tools this package does not ship knowledge of
+#           #   apply_patch: [target]
+#           # shellFields:           # opt-in: scan a shell command line for path-looking words
+#           #   bash: [command]
+#           # exempt: [ write ]      # tool names this mount never inspects
+#           # warnLimit: 5           # diagnostics per mount; 0 silences them
+#
+# Inside a bundle whose patch already has rows, add the same `insert` entry
+# instead of a second document.
+
+- insert:
+    - id: reparse-escape-guard
+      name: '@argszero/cordis-plugin-reparse-escape-guard'
