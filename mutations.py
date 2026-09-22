@@ -53,6 +53,10 @@ MUTATIONS = [
      'lib/operands.js',
      "        if (!token.includes('/') && !token.includes('\\\\'))\n            continue;",
      "        if (false)\n            continue;"),
+    ('the pack list withholds modules the entry point imports (the 0.1.0 defect)',
+     'package.json',
+     '    "lib/**/*.js",',
+     '    "lib/index.js",'),
     ('the refusal never says where the path actually lands',
      'lib/presentation.js',
      "        `  actually resolves to:    ${finding.resolved}  (outside every writable root)`,\n",
@@ -62,7 +66,7 @@ MUTATIONS = [
 
 def run_suite():
     completed = subprocess.run(
-        [NODE, '--test', 'test/guard.spec.mjs', 'test/detect.spec.mjs'],
+        [NODE, '--test', 'test/guard.spec.mjs', 'test/detect.spec.mjs', 'test/packaging.spec.mjs'],
         cwd=ROOT, capture_output=True, text=True, timeout=900,
     )
     return completed.returncode

@@ -167,7 +167,11 @@ The suites are:
 - `test/fence.spec.mjs` — the same operand put to the real confining filesystem and
   to the guard, showing they agree on the verdict and differ only in diagnosis.
 - `test/packaging.spec.mjs` — the published artifact declares exactly the bare
-  specifiers it imports (both directions).
+  specifiers it imports (both directions), and the actual npm pack list contains
+  every module the build emits plus every relative import reachable from the
+  entry point. This one was earned: `0.1.0` shipped with `files: ["lib/index.js"]`
+  and installed broken, which is why the guard now reads npm's own pack list
+  instead of trusting the manifest's intent.
 
 ## Compatibility
 
